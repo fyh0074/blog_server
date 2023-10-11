@@ -15,7 +15,7 @@ RUN mvn package
 RUN ls -al /app/target
 
 # 使用 Jetty 镜像
-FROM jetty:11.0-jre17-alpine
+FROM jetty:12.0-jre17-alpine
 
 # 复制构建后的 WAR 文件到 Jetty 的 webapps 目录中
 COPY --from=builder /app/target/blog_server.war /var/lib/jetty/webapps/root.war
