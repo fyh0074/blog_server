@@ -8,6 +8,7 @@ steps:
   args: ['push', 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp']
 
 # Deploy container image to Cloud Run
+
 #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #  entrypoint: gcloud
 #  args: ['run', 'deploy', 'myapp', '--image', 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp', '--region', 'asia-northeast1']
