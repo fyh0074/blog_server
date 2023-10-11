@@ -1,0 +1,33 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp', '.']
+
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp']
+
+# Deploy container image to Cloud Run
+#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#  entrypoint: gcloud
+#  args: ['run', 'deploy', 'myapp', '--image', 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp', '--region', 'asia-northeast1']
+# Print the full Pub/Sub message for debugging.
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: /bin/bash
+  args:
+    - '-c'
+    - |
+      echo ${_BODY}
+# Cloud Run Deploy
+- name: gcr.io/cloud-builders/gcloud
+  args:
+    - run
+    - deploy
+    - ${_SERVICE}
+    - --image=${_IMAGE_NAME}
+    - --region=${_REGION}
+    - --revision-suffix=${_REVISION}
+    - --project=${_TARGET_PROJECT}
+    - --allow-unauthenticated
+images:
+- 'asia-northeast1-docker.pkg.dev/chromatic-theme-400800/docker-images/myapp'
