@@ -20,6 +20,8 @@ FROM jetty:12.0-jre17-alpine
 # 复制构建后的 WAR 文件到 Jetty 的 webapps 目录中
 COPY --from=builder /app/target/blog_server.war /var/lib/jetty/webapps/root.war
 
+# 在这里添加查看文件列表的命令
+RUN ls -al /var/lib/jetty/webapps/
 # 暴露 Jetty 的默认端口
 EXPOSE 8080
 
